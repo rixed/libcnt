@@ -1,0 +1,2 @@
+SUBDIRS = lib checks include
+

@@ -1,0 +1,130 @@
+.TH AV_LIST 1 "December 21, 2002"
+.\" Some roff macros, for reference:
+.\" .nh        disable hyphenation
+.\" .hy        enable hyphenation
+.\" .ad l      left justify
+.\" .ad b      justify to both left and right margins (default)
+.\" .nf        disable filling
+.\" .fi        enable filling
+.\" .br        insert line break
+.\" .sp <n>    insert n+1 empty lines
+.\" for manpage-specific macros, see man(7)
+.SH NAME
+av_list \- help to build calls to functions in C (the contrary of what a va_list does)
+.SH SYNOPSIS
+.nf
+.B #include <av_list.h>
+.sp
+.BI "av_list *av_new(void *" "function" ", size_t " "ret_size" ");"
+.nl
+.BI "int av_arg(av_list *" "list" ", void *" "parameter" ", size_t " "size" ");"
+.nl
+.BI "int av_call(av_list *" "list" ", void **" "ret_value" ");"
+.nl
+.BI "void av_delete(av_list *" "list" ");"
+.fi
+.SH DESCRIPTION
+.B av_new()
+creates a new object of type
+.BR av_list ,
+and returns the adress of it.
+.I function
+is the adress of the function to be called, which returns a value of size
+.IR ret_size .
+If you are decided to ignore its return value, although it's a very bad thing to do,
+you can set
+.I ret_size
+.RB "to " 0 .
+.PP
+.B av_arg()
+add a parameter to the
+.B av_list
+.IR list .
+This parameter is of size
+.I size
+and its value is at adress
+.IR parameter .
+You must add parameters in the order of the C prototype of function
+.IR function .
+Pointers to the parameters must indeed remain valid untill the call of
+.BR av_call() .
+.PP
+.B av_call()
+actually call the function of the 
+.BI av_list " list"
+with the parameters you added with
+.BR av_arg() .
+.I ret_value
+is a pointer that will be set to the adress of the return value of
+.I function
+(if
+.I ret_size
+was set with a positive value.
+.PP
+.B av_delete()
+destroys the
+.B av_list
+.IR list .
+.SH "RETURN VALUE"
+On error,
+.BR av_new() " returns " NULL " instead off an " av_list .
+.PP
+.BR av_arg() " returns " 1 " on success, and " 0 " on error "
+(which can happen if it cannot allocate memory needed).
+.PP
+.BR av_call() " returns " 1 " on success, and " 0 " on trivial errors. "
+Errors that are not trivial (when you give inapropriate sizes for the
+parameter, usualy) leads generally to 
+.BR "Segmentation Fault" .
+.PP
+.B av_delete()
+returns no value.
+.SH EXAMPLES
+.br
+.RS
+.nf
+#include <stdio.h>
+#include "av_list.h"
+
+/* this is a function to be called magically */
+int foobar(char c, unsigned i) {
+	printf("hello world! (%c, %u)\en",c,i);
+	return 666;
+}
+
+int main() {
+	int *ret;
+	unsigned i = 33;
+	char c = 'x';
+	/* sizeof(int) is to match the return type of foobar */
+	av_list *list = av_new(foobar, sizeof(int));
+	if (!(
+				av_arg(list, &c, sizeof(char)) &&
+				av_arg(list, &i, sizeof(unsigned))
+		  )) {
+		printf("av_arg error\en");
+	}
+	if (!list || !av_call(list, (void**)&ret)) {
+		printf("error!\en");
+		return EXIT_FAILURE;
+	}
+	av_delete(list);
+	printf("ret = %d\en", *ret);
+	return EXIT_SUCCESS;
+}
+.fi
+.RE
+.PP
+this will print :
+.PP
+.RE
+hello world! (x, 33)
+.br
+ret = 666
+.fi
+.SH BUGS
+Use with CAUTION.
+
+.SH AUTHOR
+Cedric Cellier <rixed@free.fr>.
+

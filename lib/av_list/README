@@ -1,0 +1,9 @@
+av_list - help to build calls to functions in C
+(the contrary of what a va_list does)
+
+Comments are welcome.
+
+This code convert pointer to functions to void*, which
+behaviour is undefined but appears to works on most architectures.
+
+Cedric Cellier <rixed@free.fr>

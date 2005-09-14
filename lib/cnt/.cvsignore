@@ -1,0 +1,16 @@
+Makefile
+.deps
+tree.lo
+stack.lo
+slist.lo
+shelf.lo
+mem.lo
+log.lo
+list.lo
+libcnt.la
+hash.lo
+check.lo
+Makefile.in
+Makefile.ambak
+.libs
+vec.lo

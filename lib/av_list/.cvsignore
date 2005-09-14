@@ -1,0 +1,7 @@
+Makefile
+.deps
+libavlist.la
+av_list.lo
+av_call.lo
+Makefile.in
+.libs

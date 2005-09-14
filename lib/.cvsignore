@@ -1,0 +1,6 @@
+Makefile
+.deps
+libcnt.la
+autobug.lo
+Makefile.in
+.libs

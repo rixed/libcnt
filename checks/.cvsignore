@@ -1,0 +1,8 @@
+Makefile
+.deps
+Makefile.in
+.libs
+avlist_check
+shelf_check
+tree_check
+vec_check
