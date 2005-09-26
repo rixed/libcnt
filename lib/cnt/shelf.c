@@ -249,4 +249,9 @@ int cntShelf_islast(cntShelf *this) {
 	return this->each_next==0;
 }
 
+unsigned cntShelf_sizeof_element(cntShelf *this) {
+	assert(this);
+	return this->sizeof_element;
+}
+
 // vi:ts=3:sw=3

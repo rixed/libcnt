@@ -93,13 +93,20 @@ void cntShelf_reset(cntShelf *this);
  */
 void *cntShelf_each(cntShelf *this);
 
-/** Tell wether last returned element is the last.
+/** Tells wether last returned element is the last.
  * Beware that using shelf cursor is not thread safe.
  * \param this the shelf
  * \return 1 if cursor is at the end, 0 if there are still elements further away
  * \sa cntShelf_clear,cntShelf_each
  */
 int cntShelf_islast(cntShelf *this);
+
+/** Get the size of elements.
+ * For situations when your programm can't tell.
+ * \param this the shelf
+ * \return the size of elements as given in new.
+ */
+unsigned cntShelf_sizeof_element(cntShelf *this);
 
 #endif
 // vi:ts=3:sw=3

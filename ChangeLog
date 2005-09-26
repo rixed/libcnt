@@ -1,3 +1,12 @@
+2005-09-18 12:00:00 Cedric Cellier <rixed@happyleptic.org>
+
+	* Shelf : Added cntShelf_sizeof_element to retrieve element's size.
+	* commit v2.1
+
+2005-09-14 23:00:00 Cedric Cellier <rixed@happyleptic.org>
+
+	* CVS : transfered at GNA.org as a sub-module of project micromodel.
+
 2005-09-13 08:00:00 Cedric Cellier <rixed@happyleptic.org>
 
 	* mem_alloc_catcherr : Automatically abort on error
