@@ -15,12 +15,12 @@
  * along with MicroModel; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
-#include "config.h"
-#include "libcnt/vec.h"
-#include "libcnt/shelf.h"
 #include <assert.h>
 #include <math.h>
 #include <stdbool.h>
+#include "config.h"
+#include "libcnt/vec.h"
+#include "libcnt/shelf.h"
 
 /* Data Definitions */
 

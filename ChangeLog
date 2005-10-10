@@ -1,36 +1,40 @@
-2005-09-18 12:00:00 Cedric Cellier <rixed@happyleptic.org>
+2005-10-09 rixed@happyleptic.org
+
+	* Matrix : If there are vectors, there can be matrices.
+
+2005-09-18 rixed@happyleptic.org
 
 	* Shelf : Added cntShelf_sizeof_element to retrieve element's size.
 	* commit v2.1
 
-2005-09-14 23:00:00 Cedric Cellier <rixed@happyleptic.org>
+2005-09-14 rixed@happyleptic.org
 
 	* CVS : transfered at GNA.org as a sub-module of project micromodel.
 
-2005-09-13 08:00:00 Cedric Cellier <rixed@happyleptic.org>
+2005-09-13 rixed@happyleptic.org
 
 	* mem_alloc_catcherr : Automatically abort on error
 	* log_fatal : now abort instead of exit(EXIT_FAILURE)
 	* commit API v2
 
-2005-08-20 20:00:00 Cedric Cellier <rixed@happyleptic.org>
+2005-08-20 rixed@happyleptic.org
 
 	* Stack : Simplier interface
 	* Start of API v2
 
-2005-07-29 16:40:00 Cedric Cellier <rixed@happyleptic.org>
+2005-07-29 rixed@happyleptic.org
 
 	* Hash : allow the user to move pointed keys (type PTR or BIN)
 
-2005-07-24 22:00:00 Cedric Cellier <rixed@happyleptic.org>
+2005-07-24 rixed@happyleptic.org
 
 	* Stack : now we can pop and discard the value by poping into NULL
 
-2005-07-22 17:30:00 Cedric Cellier <rixed@happyleptic.org>
+2005-07-22 rixed@happyleptic.org
 
 	* Addition of cntStack_get_address
 
-2005-07-13 22:00:00 Cedric Cellier <rixed@happyleptic.org>
+2005-07-13 rixed@happyleptic.org
 
 	* the stack push operation now returns pointer to pushed datas, and allow NULL values
 

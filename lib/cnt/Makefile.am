@@ -7,7 +7,16 @@ AM_LD_FLAGS = -Wl,--warn-common
 
 noinst_LTLIBRARIES = libcnt.la
 libcnt_la_SOURCES = \
-	hash.c  list.c  mem.c  shelf.c  slist.c  stack.c  tree.c  log.c vec.c
+	hash.c \
+	list.c \
+	mem.c \
+	shelf.c \
+	slist.c \
+	stack.c \
+	tree.c \
+	log.c \
+	vec.c \
+	matrix.c
 
 SUBDIRS = sys
 
