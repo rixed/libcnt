@@ -22,7 +22,7 @@ typedef struct cntStack cntStack;
 
 cntStack *cntStack_new(unsigned sizeof_value, unsigned total, int resizeable);
 void cntStack_del(cntStack *);
-void *cntStack_push(cntStack *, void *);
+void *cntStack_push(cntStack *, void const *);
 void *cntStack_pop(cntStack *);
 void *cntStack_get(cntStack *, unsigned depth);
 void cntStack_clear(cntStack *);

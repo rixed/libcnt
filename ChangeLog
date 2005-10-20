@@ -1,3 +1,11 @@
+2005-10-20 rixed@happyleptic.org
+
+	* Addition of the usual sizeof_array MACRO.
+
+2005-10-18 rixed@happyleptic.org
+
+	* stack : constness of cntStack_push value.
+
 2005-10-09 rixed@happyleptic.org
 
 	* Matrix : If there are vectors, there can be matrices.

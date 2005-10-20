@@ -54,7 +54,7 @@ void cntStack_del(cntStack *this)
 	mem_unregister(this);
 }
 
-void *cntStack_push(cntStack *this, void *value) {
+void *cntStack_push(cntStack *this, void const *value) {
 	assert(this->next<=this->max_size);
 	if (this->next == this->max_size) {
 		this->max_size <<= 1;

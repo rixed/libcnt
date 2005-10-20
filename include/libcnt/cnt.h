@@ -35,5 +35,7 @@ static inline void cnt_end(void) {
 	log_end(); mem_end();
 }
 
+#define sizeof_array(x) (sizeof(x)/sizeof(*x))
+
 #endif
 // vi:ts=3:sw=3
