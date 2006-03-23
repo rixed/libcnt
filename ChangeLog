@@ -1,3 +1,7 @@
+2005-03-23 rixed@happyleptic.org
+
+	* RELEASE rel_2-1
+
 2005-10-20 rixed@happyleptic.org
 
 	* Addition of the usual sizeof_array MACRO.

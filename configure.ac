@@ -17,6 +17,7 @@ AM_CONDITIONAL(DEBUG, test "$enable_debug" = yes)
 # Checks for programs.
 AC_PROG_LIBTOOL
 AC_PROG_CC
+AM_PROG_AS
 AC_PROG_CPP
 AC_PROG_INSTALL
 AC_PROG_LN_S

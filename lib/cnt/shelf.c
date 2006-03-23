@@ -15,6 +15,17 @@
  * along with MicroModel; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
+/* TODO : Soit un type d'objet T qui est alloué dans un shelf. Une instance de T
+ * peut avoir ces 3 états :
+ * a - non initialisé
+ * b - initialisé à l'état pré-initial (les valeurs qui sont les mêmes pour toutes les instances, un construct sans paramètre)
+ * c - construit spécifiquement pour une instance donné (construct avec paramètres), ou en cours d'utilisation
+ * On passerait de a à b avec pre_construct, de b à c avec construct, et de c à b avec pre_destruct, puis de b à a avec
+ * construct.
+ * L'idée, c'est de permettre au shelf de garder des objets dans l'état a *ou* b. Si on nous donne le pre_construct, garder
+ * dans l'element une deuxième liste chainée des objets laissés dans l'état b, et implémenter shelf_alloc_preconstructed()
+ * qui en renvoit un.
+ */
 #include "libcnt/shelf.h"
 #include "libcnt/mem.h"
 #include "libcnt/log.h"
@@ -63,7 +74,7 @@ static void empty_chain(cntShelf *this, memzone *mz) {
 }
 
 static void recurs_memzone_del(cntShelf *this, memzone *mz) {
-	if (!mz) return;
+	if (! mz) return;
 	recurs_memzone_del(this, mz->next);
 	assert(this->nb_used_elements>=mz->nb_used_elements);
 	this->nb_used_elements -= mz->nb_used_elements;
@@ -82,10 +93,10 @@ static void all_memzone_del(cntShelf *this) {
 cntShelf *cntShelf_new(unsigned sizeof_value, unsigned nb_elements) {
 	cntShelf *this;
 	unsigned sizeof_element;
-	if (!sizeof_value || !nb_elements) return 0;
+	if (! sizeof_value || !nb_elements) return 0;
 	sizeof_element = sizeof_value>sizeof(element *)?sizeof_value:sizeof(element *);
 	this = mem_alloc(sizeof(*this)+nb_elements*sizeof_element);
-	if (!this) return 0;
+	if (! this) return 0;
 	this->first_memzone.next = NULL;
 	this->first_memzone.nb_elements = nb_elements;
 	this->first_memzone.nb_used_elements = 0;
@@ -115,11 +126,11 @@ void *cntShelf_alloc(cntShelf *this) {
 	memzone *mz;
 	assert(this);
 	for (mz=&this->first_memzone; mz->next && !mz->first_free; mz=mz->next) ;
-	if (!mz->first_free) {
+	if (! mz->first_free) {
 		/* get a new memzone */
 		unsigned nb_elements = ((mz->nb_elements+1)*3)>>1;
 		memzone *this_mz = mem_alloc(sizeof(*this_mz)+this->sizeof_element*nb_elements);
-		if (!this_mz) {
+		if (! this_mz) {
 			log_fatal("Cannot get a new memzone");
 		}
 		this_mz->next = 0;
@@ -152,7 +163,7 @@ int cntShelf_free(cntShelf *this, void *value_) {
 	assert(this && value);
 	assert(this->nb_used_elements>0);
 	if (this->each_last == value) {	// If the pointed element is the current element, get the next one right now ; otherwise behaviour is unpredictable
-		if (!this->each_next) {
+		if (! this->each_next) {
 			this->each_next = cntShelf_each(this);
 		}
 	} else if (this->each_next == value) {
@@ -167,7 +178,7 @@ int cntShelf_free(cntShelf *this, void *value_) {
 		mz_previous = mz;
 		mz = mz->next;
 	} while (mz);
-	if (!mz) return 0;
+	if (! mz) return 0;
 	assert(mz->nb_used_elements>0);
 	if (value > mz->first_free) {
 		for (previous=&mz->first_free, ptr=mz->first_free; ptr && ptr<value; previous=&ptr->next_free, ptr=ptr->next_free) ;
@@ -220,8 +231,8 @@ void *cntShelf_each(cntShelf *this) {
 		this->each_next = NULL;
 		return this->each_last;
 	}
-	if (!this->each_mz) return NULL;
-	if (!this->each_last) {
+	if (! this->each_mz) return NULL;
+	if (! this->each_last) {
 		ptr = this->each_mz->data;
 	} else {
 		ptr = (element *)((char *)this->each_last + this->sizeof_element);
@@ -234,7 +245,7 @@ again:
 	}
 	if (ptr == (element *)((char *)this->each_mz->data + this->each_mz->nb_elements*this->sizeof_element)) {
 		this->each_mz = this->each_mz->next;
-		if (!this->each_mz) return NULL;
+		if (! this->each_mz) return NULL;
 		this->each_next_free = this->each_mz->first_free;
 		ptr = this->each_mz->data;
 		goto again;

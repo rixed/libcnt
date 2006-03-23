@@ -22,8 +22,8 @@
 #include <libcnt/log.h>
 
 static inline int cnt_init(unsigned pool_size, log_warn_level level) {
-	if (!mem_init(pool_size)) return 0;
-	if (!log_init(level)) {
+	if (! mem_init(pool_size)) return 0;
+	if (! log_init(level)) {
 		mem_end();
 		return 0;
 	}
